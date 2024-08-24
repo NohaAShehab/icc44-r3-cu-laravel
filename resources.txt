@@ -38,7 +38,12 @@ files --> .blade.php
 
 https://laravel.com/docs/11.x/blade#loops
 
+# route names
 
+
+## template inheritance
+
+define general template can be inherited in different blade files --> write once use many
 
 
 
