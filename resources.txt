@@ -29,7 +29,14 @@ Routes parameters
 https://laravel.com/docs/11.x/routing#route-parameters
 
 
+################### views
+laravel introduces ? template engine blade ??
+no more need to open <?php tag -->
 
+===> you can get values sent by controller and do many operations on it.
+files --> .blade.php
+
+https://laravel.com/docs/11.x/blade#loops
 
 
 
