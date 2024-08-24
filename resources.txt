@@ -47,6 +47,12 @@ define general template can be inherited in different blade files --> write once
 
 
 
+## move from web.php to Controller
+
+php artisan
+
+
+php artisan make:controller StudentController
 
 
 

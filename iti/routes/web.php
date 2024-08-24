@@ -109,7 +109,13 @@ Route::get("/persons/{id}", function (int $id) {
 
 
 
-
+#########################################################3
+# get index function from StudentController ??
+# in laravel no need to use require
+use App\Http\Controllers\StudentController;
+# StudentController::class  --> scope binding
+Route::get("/students",[StudentController::class, "index"] )->name("students.index");
+Route::get("/students/{id}",[StudentController::class, "show"] )->name("students.show");
 
 
 

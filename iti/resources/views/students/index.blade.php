@@ -1,0 +1,20 @@
+@extends('layouts.app')
+
+@section('content')
+    <h1> All Students </h1>
+    <table class="table">
+
+        <tr><th> ID</th> <th> Name</th> <th> Image</th> <th>Show</th></tr>
+        @foreach($students as $student)
+            <tr>
+                <td>{{$student['id']}}</td>
+                <td>{{$student['name']}}</td>
+                <td>{{$student['image']}}</td>
+                <td><a href="{{route("students.show", $student['id'])}}" class="btn btn-info">Show</a></td>
+
+            </tr>
+
+        @endforeach
+    </table>
+
+@endsection
