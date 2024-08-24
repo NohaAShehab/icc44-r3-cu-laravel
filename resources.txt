@@ -1,0 +1,47 @@
+
+****************** 1- install composer
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+php composer-setup.php
+php -r "unlink('composer-setup.php');"
+https://getcomposer.org/download/
+
+
+
+*********** 2- get started with laravel
+composer create-project laravel/laravel iti
+--> install required libraries
+
+
+
+--> artisan commandline tool run adminstrative tasks on project
+    php artisan serve
+
+--- design pattern
+https://refactoring.guru/design-patterns/what-is-pattern
+
+
+################### files hierarchy
+views  --> htmlpages /// --> resoucres/views
+
+
+Routes parameters
+https://laravel.com/docs/11.x/routing#route-parameters
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
