@@ -1,0 +1,22 @@
+1- install laravel
+2- create project iti
+3- create controller PostController
+    has function
+   ---> index --> call it ===? dispaly posts in table like
+    given in pic1
+    data of post --> defined hardcoded in controller
+
+    ===> create
+        when you call it return with view like in pic2
+
+    ===> edit
+        --> when you call it return with view like in pic3
+
+    ===> show
+    show post details ---> in a card
+
+
+hints:
+    --> 1- use template inheritance
+    --> 2- use controller
+    --> 3- use route name
