@@ -24,3 +24,26 @@ https://laravel.com/docs/11.x/migrations#available-column-types
 
 
 # create new migration file ==> add col bio to table students
+
+**************** run dml function on db
+1- query builder
+https://laravel.com/docs/11.x/queries
+2- use model
+    --> what is model
+        is a php class represent table in db ...
+
+    Eloquent orm model
+https://laravel.com/docs/11.x/eloquent#introduction
+
+--> retrieve data
+select * from students;
+https://laravel.com/docs/11.x/eloquent#retrieving-models
+
+
+
+
+
+
+
+
+

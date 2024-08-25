@@ -29,10 +29,10 @@
     </div>
 </nav>
 
-<h1> Welcome to template inheritance </h1>
+{{--<h1> Welcome to template inheritance </h1>--}}
 <div class="container">
 
-    <div class="bg-warning">
+    <div class="">
         @yield("content")
     </div>
 
