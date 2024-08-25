@@ -55,6 +55,67 @@ class StudentController extends Controller
         abort(404);
     }
 
+    function create(){
+        # return new view ==> contain form
+        return view("students.create");
+    }
+
+    function  store()
+    {
+
+
+//        dd("new object created");
+//        dd($_POST);
+
+        # create new object
+//        $student = new Student();
+//        $student->name = $_POST['name'];
+//        $student->email= $_POST['email'];
+//        $student->gender = $_POST['gender'];
+//        $student->image = $_POST['image'];
+//        $student->grade= $_POST['grade'];
+//        $student->save(); # insert into students --->
+//        return to_route("students.show", $student->id);
+
+        ### use laravel request --> middleware convert empty strings to null
+//        $request_data=request()->all();
+////        dd($request_data, $_POST);
+//        $student = new Student();
+//        $student->name = $request_data['name'];
+//        $student->email = $request_data['email'];
+//        $student->grade = $request_data['grade'];
+//        $student->gender  = $request_data['gender'];
+//        $student->image = $request_data['image'];
+//        $student->save();
+//        return to_route("students.show", $student->id);
+
+        # using laravel request --> validation on data
+        # define validation rules
+        $valid_data =request()->validate([
+           "name"=>"required",
+           "email"=>"required|email|unique:students",
+            "grade"=>"integer"
+        ]);
+
+//        dd($valid_data);
+        $request_data = request()->all(); # get request parameter
+        # if form is not valid  --> redirect to the html page
+        $student = new Student();
+        $student->name = $request_data['name'];
+        $student->email = $request_data['email'];
+        $student->grade = $request_data['grade'];
+        $student->gender  = $request_data['gender'];
+        $student->image = $request_data['image'];
+        $student->save();
+        return to_route("students.show", $student->id);
+
+
+
+
+
+
+    }
+
 
 
 

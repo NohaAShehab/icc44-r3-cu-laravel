@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    <a class="btn btn-primary" href="{{route("students.create")}}"> Create new Student </a>
     <h1> All Students </h1>
     <table class="table">
 
