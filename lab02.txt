@@ -1,0 +1,22 @@
+--> configure mysql db connection on your project
+
+post fields ==> title , id , description , posted_by, created_at , updated_at
+
+--> create model for posts
+    --> posted_by --> hard coded values
+        ["ahmed", "mohamed","mmm"]
+
+        $tab==>string("creator")
+
+
+1- complete all crud --> posts
+create, update, delete, show , index
+
+2- use pagination in posts.index to display only 3 posts per page
+https://laravel.com/docs/11.x/pagination#main-content
+
+3- display old data of form fields
+
+4- change format of created at data --> use carbon data
+n Index & Show page ,make sure the Created At is formated , so read carbon
+documentation https://carbon.nesbot.com/docs/
