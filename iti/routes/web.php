@@ -127,8 +127,3 @@ Route::get("/students/{id}",[StudentController::class, "show"] )->name("students
 
 
 
-
-
-
-
-

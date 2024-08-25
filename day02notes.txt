@@ -1,0 +1,3 @@
+# replace image name with img
+
+static images/ js/ css --> public folder
