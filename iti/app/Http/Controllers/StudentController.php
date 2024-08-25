@@ -86,7 +86,7 @@ class StudentController extends Controller
 //        $student->grade = $request_data['grade'];
 //        $student->gender  = $request_data['gender'];
 //        $student->image = $request_data['image'];
-//        $student->save();
+//        $student->save(); # save in db --> id generated and saved to the object
 //        return to_route("students.show", $student->id);
 
         # using laravel request --> validation on data
