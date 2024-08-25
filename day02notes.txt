@@ -1,3 +1,26 @@
 # replace image name with img
 
 static images/ js/ css --> public folder
+
+##### 2- connect with database
+1- first you need prepare db configuration in .env ??
+
+migration files --> define ddl of the database
+--> first of all larvel create table --> migration
+    --> contains info about migration files applied on the db
+   --> when you run php artisan:migrate
+        -->it will check if the file migrated before or not ??
+            and run the non-migrated file
+
+# create table students ??
+    so I need to create new migration file
+    php artisan make:migration
+    php artisan make:migration create_students_table
+
+https://laravel.com/docs/11.x/migrations
+
+columns datatypes
+https://laravel.com/docs/11.x/migrations#available-column-types
+
+
+# create new migration file ==> add col bio to table students
