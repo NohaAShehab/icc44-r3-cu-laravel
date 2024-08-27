@@ -7,6 +7,7 @@ use App\Models\Track;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 
 class StudentController extends Controller
 {
@@ -112,30 +113,45 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
-    {
-        //
-        # ignore current object email
-//        dd($request->all());
-        $request->validate([
-            "name"=>"required",
-//            "email"=>"required|email|unique:students",
-            "email"=>[
-                "required",
-                "email",
-                Rule::unique("students",'email')->ignore($student)
-            ],
-            "grade"=>"integer"
-        ], [
-            "name.required"=>"No student without name",
-            "email.required"=>"No student without email",
-            "email.email"=>"Invalid email for this student",
-            "email.unique"=>"Student with this email already exists",
-            "grade.integer"=>"Invalid grade",
-        ]);
+//    public function update(Request $request, Student $student)
+//    {
+//        //
+//        # ignore current object email
+////        dd($request->all());
+//        $request->validate([
+//            "name"=>"required",
+////            "email"=>"required|email|unique:students",
+//            "email"=>[
+//                "required",
+//                "email",
+//                Rule::unique("students",'email')->ignore($student)
+//            ],
+//            "grade"=>"integer"
+//        ], [
+//            "name.required"=>"No student without name",
+//            "email.required"=>"No student without email",
+//            "email.email"=>"Invalid email for this student",
+//            "email.unique"=>"Student with this email already exists",
+//            "grade.integer"=>"Invalid grade",
+//        ]);
+//
+//        $image_path= $student->image;
+//        if($request->hasFile('image')){
+//            $image = $request->file('image');
+//            $image_path=$image->store("images", 'students_images');
+//
+//        }
+//        $request_data= request()->all();
+//        $request_data['image']=$image_path;
+//        $student->update($request_data);
+//        return to_route('students.show', $student);
+//    }
 
+    public function update(UpdateStudentRequest $request, Student $student)
+    {
         $image_path= $student->image;
         if($request->hasFile('image')){
+            # delete old_image
             $image = $request->file('image');
             $image_path=$image->store("images", 'students_images');
 
@@ -145,6 +161,8 @@ class StudentController extends Controller
         $student->update($request_data);
         return to_route('students.show', $student);
     }
+
+
 
     /**
      * Remove the specified resource from storage.
