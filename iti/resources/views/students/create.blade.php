@@ -31,13 +31,17 @@
         <div class="mb-3">
             <label  class="form-label">Image</label>
             <input type="file" name="image" class="form-control"  >
+            @error('image')
+            <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-3">
             <label  class="form-label">Track</label>
             <select name="track_id" class="form-control"  >
                 <option disabled selected value=""> Please choose track</option>
                 @foreach($tracks as $track)
-                    <option value="{{$track->id}}">{{$track->name}}</option>
+
+                    <option value="{{$track->id}}" {{old('track_id')=== $track->id ? "selected" : ""}}>{{$track->name}}</option>
                 @endforeach
             </select>
         </div>
