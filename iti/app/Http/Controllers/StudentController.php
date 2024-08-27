@@ -46,11 +46,21 @@ class StudentController extends Controller
             "email.unique"=>"Student with this email already exists",
             "grade.integer"=>"Invalid grade",
         ]);
+        # save image  --> inside public path
+        # define path for the student
+        $image_path= null;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $image_path=$image->store("images", 'students_images');
 
+        }
+        $request_data= request()->all();
+//        dd($request_data);
+        $request_data['image']=$image_path; # replace image object with image_uploaded path
         ### save object
         # mass assignment
 
-        $student = Student::create($request->all());
+        $student = Student::create($request_data);
         return to_route('students.show', $student);
 
 

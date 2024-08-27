@@ -3,7 +3,7 @@
 @section("content")
 
     <h1 style="text-align: center"> Add new Student</h1>
-    <form action="{{route("students.store")}}" method="post">
+    <form action="{{route("students.store")}}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="mb-3">
@@ -30,7 +30,7 @@
         </div>
         <div class="mb-3">
             <label  class="form-label">Image</label>
-            <input type="text" name="image" class="form-control"  >
+            <input type="file" name="image" class="form-control"  >
         </div>
         <div class="mb-3">
             <label  class="form-label">Gender</label>
