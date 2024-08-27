@@ -2,121 +2,93 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Models\Student;
+use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    private $students=  [
-        ["id"=>1, "name"=>"Omar", "image"=>"pic1.png", "salary"=>10000],
-        ["id"=>2, "name"=>"Tarek", "image"=>"pic2.png", "salary"=>20000],
-        ["id"=>3, "name"=>"Ahmed", "image"=>"pic3.png", "salary"=>30000],
-        ["id"=>4, "name"=>"Noha", "image"=>"pic4.png", "salary"=>40000],
-
-        ];
-    // contains functions --> manage actions
-    function index (){
-//        return "students";
-        # get data from database
-         # 1- query
-        # select * from students;
-//        $students = DB::table('students')->get();
-        ### 2- Model
-        // select * from students;
-//        $students= Student::all(['id', 'name', 'image']);
-        $students=Student::all();
-//        dd($students); # dump then exit
-//        return $students;
-
-
-        return view("students.index", ["students"=>$students]);
-
-    }
-
-
-    function show ($id){
-        # select * from students where id=id;
-        $student= Student::find($id);
-//        dd($student);
-        if($student){
-            return view("students.show", ["student"=>$student]);
-        }
-
-        abort(404); # return with page 404 not found
-    }
-
-    function destroy ($id){
-        $student = Student::find($id);
-        if($student){
-            $student->delete();  # delete from students where id=id;
-            return to_route("students.index");
-        }
-        abort(404);
-    }
-
-    function create(){
-        # return new view ==> contain form
-        return view("students.create");
-    }
-
-    function  store()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
+        //
+//        $students = Student::all();
+        $students= Student::paginate(4);
+        return view('students.index', compact('students'));
+    }
 
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+        return view('students.create');
+    }
 
-//        dd("new object created");
-//        dd($_POST);
-
-        # create new object
-//        $student = new Student();
-//        $student->name = $_POST['name'];
-//        $student->email= $_POST['email'];
-//        $student->gender = $_POST['gender'];
-//        $student->image = $_POST['image'];
-//        $student->grade= $_POST['grade'];
-//        $student->save(); # insert into students --->
-//        return to_route("students.show", $student->id);
-
-        ### use laravel request --> middleware convert empty strings to null
-//        $request_data=request()->all();
-////        dd($request_data, $_POST);
-//        $student = new Student();
-//        $student->name = $request_data['name'];
-//        $student->email = $request_data['email'];
-//        $student->grade = $request_data['grade'];
-//        $student->gender  = $request_data['gender'];
-//        $student->image = $request_data['image'];
-//        $student->save(); # save in db --> id generated and saved to the object
-//        return to_route("students.show", $student->id);
-
-        # using laravel request --> validation on data
-        # define validation rules
-        $valid_data =request()->validate([
-           "name"=>"required",
-           "email"=>"required|email|unique:students",
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+        # apply validation
+//        dd($request->all());
+        $request->validate([
+            "name"=>"required",
+            "email"=>"required|email|unique:students",
             "grade"=>"integer"
+        ], [
+            "name.required"=>"No student without name",
+            "email.required"=>"No student without email",
+            "email.email"=>"Invalid email for this student",
+            "email.unique"=>"Student with this email already exists",
+            "grade.integer"=>"Invalid grade",
         ]);
 
-//        dd($valid_data);
-        $request_data = request()->all(); # get request parameter
-        # if form is not valid  --> redirect to the html page
-        $student = new Student();
-        $student->name = $request_data['name'];
-        $student->email = $request_data['email'];
-        $student->grade = $request_data['grade'];
-        $student->gender  = $request_data['gender'];
-        $student->image = $request_data['image'];
-        $student->save();
-        return to_route("students.show", $student->id);
+        ### save object
+        # mass assignment
 
-
-
-
+        $student = Student::create($request->all());
+        return to_route('students.show', $student);
 
 
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show(Student $student)
+    {
+        //
+//        $student = Student::findorfail($student->id);
+//        dd($student);
+        return view('students.show', compact('student'));
+    }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Student $student)
+    {
+        //
+    }
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Student $student)
+    {
+        //
+    }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Student $student)
+    {
+        //
+        dd($student);
+    }
 }

@@ -112,26 +112,29 @@ Route::get("/persons/{id}", function (int $id) {
 #########################################################3
 # get index function from StudentController ??
 # in laravel no need to use require
-use App\Http\Controllers\StudentController;
+use App\Http\Controllers\OldStudentController;
 # StudentController::class  --> scope binding
-Route::get("/students",[StudentController::class, "index"] )->name("students.index");
-Route::get("/students/create", [StudentController::class, 'create'])->name("students.create");
-
-Route::get("/students/{id}",[StudentController::class, "show"] )->name("students.show")
-    ->where('id', '[0-9]+');
-
-Route::get("/students/{id}/destroy",
-    [StudentController::class, "destroy"] )->name("students.destroy")
-    ->where('id', '[0-9]+');
-
-
-### create new object
-# http request method --> post
-Route::post("/students", [StudentController::class, 'store'])->name("students.store");
-
-
+//Route::get("/students",[OldStudentController::class, "index"] )->name("students.index");
+//Route::get("/students/create", [OldStudentController::class, 'create'])->name("students.create");
+//
+//Route::get("/students/{id}",[OldStudentController::class, "show"] )->name("students.show")
+//    ->where('id', '[0-9]+');
+//
+//Route::get("/students/{id}/destroy",
+//    [OldStudentController::class, "destroy"] )->name("students.destroy")
+//    ->where('id', '[0-9]+');
+//
+//
+//### create new object
+//# http request method --> post
+//Route::post("/students", [OldStudentController::class, 'store'])->name("students.store");
 
 
+ ##### generate routes from resource controller
+
+use App\Http\Controllers\StudentController;
+
+Route::resource('students', StudentController::class);
 
 
 
