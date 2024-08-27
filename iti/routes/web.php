@@ -136,6 +136,8 @@ use App\Http\Controllers\StudentController;
 
 Route::resource('students', StudentController::class);
 
+use App\Http\Controllers\TrackController;
+Route::resource("tracks", TrackController::class);
 
 
 

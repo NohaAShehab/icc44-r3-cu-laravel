@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class StudentController extends Controller
 {
@@ -23,8 +25,9 @@ class StudentController extends Controller
      */
     public function create()
     {
+        $tracks = Track::all();
         //
-        return view('students.create');
+        return view('students.create',compact('tracks'));
     }
 
     /**
@@ -83,6 +86,8 @@ class StudentController extends Controller
     public function edit(Student $student)
     {
         //
+        $tracks = Track::all();
+        return view("students.edit", compact('student', 'tracks'));
     }
 
     /**
@@ -91,6 +96,35 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         //
+        # ignore current object email
+//        dd($request->all());
+        $request->validate([
+            "name"=>"required",
+//            "email"=>"required|email|unique:students",
+            "email"=>[
+                "required",
+                "email",
+                Rule::unique("students",'email')->ignore($student)
+            ],
+            "grade"=>"integer"
+        ], [
+            "name.required"=>"No student without name",
+            "email.required"=>"No student without email",
+            "email.email"=>"Invalid email for this student",
+            "email.unique"=>"Student with this email already exists",
+            "grade.integer"=>"Invalid grade",
+        ]);
+
+        $image_path= $student->image;
+        if($request->hasFile('image')){
+            $image = $request->file('image');
+            $image_path=$image->store("images", 'students_images');
+
+        }
+        $request_data= request()->all();
+        $request_data['image']=$image_path;
+        $student->update($request_data);
+        return to_route('students.show', $student);
     }
 
     /**
@@ -99,6 +133,8 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
-        dd($student);
+//        dd($student);
+        $student->delete();
+        return to_route('students.index')->with('success', 'Student deleted successfully');
     }
 }
