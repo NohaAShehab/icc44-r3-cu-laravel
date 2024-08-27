@@ -1,0 +1,46 @@
+0- add image to your posts ==> search about
+    --> when i delete the post --> associated image must be deleted
+    --> when I update image in post --> remove old image
+1- connect the post creator with the post --> one to many relation
+    --> implement the relation in models and the database
+
+2- use factory and seeders to create 10 dump users to be used as post creator
+https://laravel.com/docs/11.x/database-testing#model-factories
+
+
+modify the previous forms to
+----> Add validation using form request classes on Store & Update
+    https://laravel.com/docs/master/validation#creating-form-requests
+- Title & description are required , minimum length for title is 3
+chars and unique, for description the minimum length is 10
+chars ,make sure when updating post without changing Title
+it still works
+==> image --> validation must be image ->>
+
+Also make sure that no one hacks you and send an id of post
+creator that doesn’t exist in the database
+
+
+-------------------------------------------------
+
+- When i Click on Delete you must show a warning before deleting and i choose
+between yes to confirm Delete or no
+
+(search)
+- Create PostSeeder & PostFactory class so that when i run php artisan db:seed it
+seeds posts table with 500 records
+
+=================== Implementation soft delete ==================
+Add restore button on index page to restore deleted posts you will
+need to use soft delete
+https://laravel.com/docs/master/eloquent#soft-deleting
+
+==============>================ Bonus ============================================
+- Add comments to post using polymorphic relation and also we need to show who
+commented on post
+https://laravel.com/docs/master/eloquent-relationships#polymorphic-relationships
+
+
+
+
+--
