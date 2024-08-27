@@ -11,4 +11,11 @@ class Student extends Model
     # specify table name
     protected $table = 'students';
     protected $fillable=["name", "email", "grade", "gender", "image", "track_id"];
+
+    # relation track
+    function track(){ # define track property
+        return $this->belongsTo(Track::class);
+        # select * from tracks where id = $this->track_id;
+        ## relation --> with track object
+    }
 }

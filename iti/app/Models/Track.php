@@ -9,4 +9,8 @@ class Track extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'description'];
+
+    function students(){
+        return $this->hasMany(Student::class);
+    }
 }

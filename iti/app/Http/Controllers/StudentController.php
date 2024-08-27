@@ -77,6 +77,11 @@ class StudentController extends Controller
         //
 //        $student = Student::findorfail($student->id);
 //        dd($student);
+        # track_anme
+//        $track = Track::find($student->track_id);
+
+//        $all_students = Student::all()->where('track_id', $student->track_id);
+//        dd($all_students);
         return view('students.show', compact('student'));
     }
 
@@ -132,8 +137,6 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        //
-//        dd($student);
         $student->delete();
         return to_route('students.index')->with('success', 'Student deleted successfully');
     }
