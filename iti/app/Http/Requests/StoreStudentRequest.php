@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+use App\Rules\ValidStudentName;
 class StoreStudentRequest extends FormRequest
 {
     /**
@@ -23,7 +23,11 @@ class StoreStudentRequest extends FormRequest
     {
         return [
             //
-            "name"=>"required",
+//            "name"=>"required",
+            "name"=>[
+                "required",
+                new ValidStudentName(),
+            ],
             "email"=>"required|email|unique:students",
             "grade"=>"integer",
             "image"=>"image|mimes:jpeg,jpg,png|max:2048",
