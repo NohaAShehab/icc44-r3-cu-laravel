@@ -41,10 +41,22 @@ implement logic --> add student creator ?? logged_in user ??
     2- Authorization tools
         1- gates ??
             can-delete ?
-            define gates in AppServiceProvider
+            a- define gates in AppServiceProvider
               Gate::define('delete-student', function (User $user, Student $student) {
                         return $user->id === $student->creator_id;
                     });
+
+            b- use this gate ?
+                b1- use gates in controller?
+                 if (! Gate::allows('delete-student', $student)) {
+                            abort(403);
+                        }
+                 b2- use gate ==>with user ???
+                  if(! Auth::user()->can('delete-student', $student)){
+                             abort(403);
+                         }
+
+                b3- use gates in blade
 
 
 

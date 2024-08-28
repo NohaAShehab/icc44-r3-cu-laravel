@@ -19,9 +19,20 @@
                 <td><img src="{{asset('images/students/'.$student->image)}}" width="50" height="50"></td>
                 <td><a href="{{route("students.show", $student)}}" class="btn btn-info">Show</a></td>
                 <td><a href="{{route("students.edit", $student)}}" class="btn btn-warning">Edit</a></td>
-                @auth()
-                <td>
+{{--                @auth()--}}
+{{--                <td>--}}
 
+{{--                    <form action="{{route("students.destroy", $student)}}" method="post">--}}
+{{--                        @csrf--}}
+{{--                        @method("delete")--}}
+{{--                        <input type="submit" class="btn btn-danger" value="Delete">--}}
+{{--                    </form>--}}
+{{--                    </td>--}}
+{{--                @else--}}
+{{--                    <td><strong>Login first</strong></td>--}}
+{{--                @endauth--}}
+                @can('delete-student', $student)
+                    <td>
                     <form action="{{route("students.destroy", $student)}}" method="post">
                         @csrf
                         @method("delete")
@@ -29,8 +40,10 @@
                     </form>
                     </td>
                 @else
-                    <td><strong>Login first</strong></td>
-                @endauth
+                    <td>
+                    <strong style="color:red">You cannot delete this student</strong>
+                    </td>
+                @endcan
             </tr>
 
         @endforeach

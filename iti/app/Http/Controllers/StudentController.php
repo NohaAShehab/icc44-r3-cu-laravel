@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StudentController extends Controller
 {
@@ -183,10 +184,17 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        if($student->creator_id != Auth::id()){
+//        if($student->creator_id != Auth::id()){
+////            abort(403);
+//            return to_route('students.index')->with("error", "You can't delete this student");
+//        }
+//        if (! Gate::allows('delete-student', $student)) {
 //            abort(403);
-            return to_route('students.index')->with("error", "You can't delete this student");
+//        }
+        if(! Auth::user()->can('delete-student', $student)){
+            abort(403);
         }
+
         $student->delete();
         return to_route('students.index')->with('success', 'Student deleted successfully');
     }

@@ -21,6 +21,15 @@
             <p class="card-text">Updated_at: {{$student->updated_at}}</p>
 
             <a href="{{route("students.index")}}" class="btn btn-primary">Back to all students </a>
+            @can('delete-student', $student)
+            <form action="{{route("students.destroy", $student)}}" method="post">
+                @csrf
+                @method("delete")
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+            @else
+                <strong style="color:red">You cannot delete this student</strong>
+            @endcan
         </div>
     </div>
     <div class="col" >
