@@ -11,6 +11,12 @@ use App\Http\Requests\UpdateStudentRequest;
 
 class StudentController extends Controller
 {
+
+    function __construct()
+    {
+//        $this->middleware("auth")->only("store");
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -72,6 +78,7 @@ class StudentController extends Controller
 //    }
     public function store(StoreStudentRequest $request)
     {
+//        dd($_POST, $request->all());
 //        dd($request);
         $image_path=null;
         if($request->hasFile('image')){

@@ -13,20 +13,21 @@
             <tr>
                 <td>{{$student->id}}</td>
                 <td>{{$student->name}}</td>
-                <td><img src="{{asset('images/students/'.$student->image)}}" width="100" height="100"></td>
+                <td><img src="{{asset('images/students/'.$student->image)}}" width="50" height="50"></td>
                 <td><a href="{{route("students.show", $student)}}" class="btn btn-info">Show</a></td>
                 <td><a href="{{route("students.edit", $student)}}" class="btn btn-warning">Edit</a></td>
-
+                @auth()
                 <td>
 
-{{--                    <a href="{{route("students.destroy", $student->id)}}" class="btn btn-danger">Delete</a>--}}
                     <form action="{{route("students.destroy", $student)}}" method="post">
                         @csrf
                         @method("delete")
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </form>
                     </td>
-
+                @else
+                    <td><strong>Login first</strong></td>
+                @endauth
             </tr>
 
         @endforeach

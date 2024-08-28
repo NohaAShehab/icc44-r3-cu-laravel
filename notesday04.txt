@@ -1,0 +1,24 @@
+
+1- using laravel
+
+
+2- using middlewares
+intro
+https://laravel.com/docs/11.x/middleware
+----------> middleware groups
+basic middlewares
+https://laravel.com/docs/11.x/middleware#manually-managing-laravels-default-global-middleware
+
+web middlewares
+https://laravel.com/docs/11.x/middleware#laravels-default-middleware-groups
+
+
+laravel-ui package
+    -> provide middleware --> auth -->
+        --> can be used in different parts in the app. ??
+    1- inside controller
+        -->restrict only authenticated user can store new student ??
+
+    2- inside the route
+
+    3-  inside the view
