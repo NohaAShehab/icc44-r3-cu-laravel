@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
@@ -76,8 +77,13 @@ class StudentController extends Controller
 //
 //
 //    }
+# request in laravel has info about logged in user
     public function store(StoreStudentRequest $request)
     {
+
+        dd($request->user());
+//        dd(Auth::user()->id);
+//        dd(Auth::id()); # return with id of current logged in user
 //        dd($_POST, $request->all());
 //        dd($request);
         $image_path=null;
@@ -87,6 +93,7 @@ class StudentController extends Controller
         }
         $request_data= request()->all();
         $request_data['image']=$image_path; # replace image object with image_uploaded path
+        $request_data["creator_id"]= Auth::id();
         $student = Student::create($request_data);
         return to_route('students.show', $student);
     }

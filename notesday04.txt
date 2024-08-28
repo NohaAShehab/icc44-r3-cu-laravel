@@ -20,5 +20,26 @@ laravel-ui package
         -->restrict only authenticated user can store new student ??
 
     2- inside the route
+//Route::resource('students', StudentController::class)->middleware("auth");
 
     3-  inside the view
+
+        @auth()
+
+        @else
+
+        @endauth
+
+
+
+*************************************************************************
+implement logic --> add student creator ?? logged_in user ??
+
+
+
+
+
+
+
+
+
