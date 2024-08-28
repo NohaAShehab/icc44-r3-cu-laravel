@@ -164,6 +164,16 @@ class StudentController extends Controller
 
     public function update(UpdateStudentRequest $request, Student $student)
     {
+
+//        if(! Gate::allows('update', $student)){
+//            abort(403);
+//        }
+
+        if(! $request->user()->can('update', $student)){
+            abort(403);
+        }
+
+
         $image_path= $student->image;
         if($request->hasFile('image')){
             # delete old_image

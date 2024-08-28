@@ -57,6 +57,41 @@ implement logic --> add student creator ?? logged_in user ??
                          }
 
                 b3- use gates in blade
+                @can()
+                @endcan
+
+            ************************************************
+            2- using Polices
+            php artisan make:policy PostPolicy --model=Student
+            --> apply policy on update ??
+            in policy class
+              public function update(User $user, Student $student): bool
+                {
+                    //
+                    return $user->id === $student->creator_id;
+                }
+                **** 0-  register with policy
+                # register policy in appservice provider
+                  Gate::policy(Student::class, StudentPolicy::class);
+                ****** 1- use policy
+                    1- in controller
+
+                     if(! Gate::allows('update', $student)){
+                                abort(403);
+                            }
+
+                      if(! $request->user()->can('update', $student)){
+                                 abort(403);
+                             }
+
+
+
+
+
+
+
+
+
 
 
 
