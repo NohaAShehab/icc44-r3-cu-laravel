@@ -18,7 +18,11 @@
                 <td>{{$student->name}}</td>
                 <td><img src="{{asset('images/students/'.$student->image)}}" width="50" height="50"></td>
                 <td><a href="{{route("students.show", $student)}}" class="btn btn-info">Show</a></td>
-                <td><a href="{{route("students.edit", $student)}}" class="btn btn-warning">Edit</a></td>
+                @can("update", $student)
+                    <td><a href="{{route("students.edit", $student)}}" class="btn btn-warning">Edit</a></td>
+                @else
+                    <td><strong>Updated allowed for only owners </strong> </td>
+                @endcan
 {{--                @auth()--}}
 {{--                <td>--}}
 
