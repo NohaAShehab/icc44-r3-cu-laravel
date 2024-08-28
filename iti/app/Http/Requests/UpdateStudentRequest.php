@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Student;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -12,7 +13,8 @@ class UpdateStudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+//        return true;
+        return $this->user()->can('update', $this->student);
     }
 
     /**

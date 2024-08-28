@@ -169,9 +169,9 @@ class StudentController extends Controller
 //            abort(403);
 //        }
 
-        if(! $request->user()->can('update', $student)){
-            abort(403);
-        }
+//        if(! $request->user()->can('update', $student)){
+//            abort(403);
+//        }
 
 
         $image_path= $student->image;

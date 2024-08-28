@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        // specify here which middleware applied on which route
+//        $middleware->validateCsrfTokens(
+//            except: ['/students']
+//        );
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
