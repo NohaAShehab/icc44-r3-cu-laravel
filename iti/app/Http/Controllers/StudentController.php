@@ -81,7 +81,7 @@ class StudentController extends Controller
     public function store(StoreStudentRequest $request)
     {
 
-        dd($request->user());
+//        dd($request->user());
 //        dd(Auth::user()->id);
 //        dd(Auth::id()); # return with id of current logged in user
 //        dd($_POST, $request->all());
@@ -183,6 +183,10 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        if($student->creator_id != Auth::id()){
+//            abort(403);
+            return to_route('students.index')->with("error", "You can't delete this student");
+        }
         $student->delete();
         return to_route('students.index')->with('success', 'Student deleted successfully');
     }

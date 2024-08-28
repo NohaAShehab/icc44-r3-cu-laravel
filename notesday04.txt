@@ -35,6 +35,17 @@ laravel-ui package
 *************************************************************************
 implement logic --> add student creator ?? logged_in user ??
 
+---> only student creator can delete student
+    1- in controller if condition
+
+    2- Authorization tools
+        1- gates ??
+            can-delete ?
+            define gates in AppServiceProvider
+              Gate::define('delete-student', function (User $user, Student $student) {
+                        return $user->id === $student->creator_id;
+                    });
+
 
 
 
