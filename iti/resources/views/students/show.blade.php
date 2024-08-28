@@ -16,6 +16,7 @@
                 <p class="card-text" > <a href="{{route("tracks.show", $student->track)}}"> {{$student->track->name}}</a> </p>
 
             @endif
+            <p class="card-text"><strong> Created_by: {{$student->creator ? $student->creator->name : "unknown"}} </strong></p>
             <p class="card-text">Created_at: {{$student->created_at}}</p>
             <p class="card-text">Updated_at: {{$student->updated_at}}</p>
 
