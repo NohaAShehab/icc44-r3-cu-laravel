@@ -164,6 +164,12 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/iti/vendor/laravel/sanctum" />
+      <excludeFolder url="file://$MODULE_DIR$/iti/vendor/firebase/php-jwt" />
+      <excludeFolder url="file://$MODULE_DIR$/iti/vendor/laravel/socialite" />
+      <excludeFolder url="file://$MODULE_DIR$/iti/vendor/league/oauth1-client" />
+      <excludeFolder url="file://$MODULE_DIR$/iti/vendor/paragonie/constant_time_encoding" />
+      <excludeFolder url="file://$MODULE_DIR$/iti/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/iti/vendor/phpseclib/phpseclib" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

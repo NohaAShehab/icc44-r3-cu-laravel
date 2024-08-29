@@ -171,3 +171,59 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
  *   GET|HEAD        home .............................................................. home › HomeController@index
 
  * **/
+
+
+/////// Login with github
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+
+
+Route::get('/auth/redirect', function () {
+//    return "github";
+    return Socialite::driver('github')->redirect();
+})->name('github.login');
+
+Route::get('/auth/callback', function () {
+
+//    return "redirected";
+//    $user = Socialite::driver('github')->stateless()->user();
+//    dd($user);
+    // if user exists --> login .. if not register then login
+    $githubUser = Socialite::driver('github')->user();
+    $user = User::updateOrCreate([
+        'github_id' => $githubUser->id,
+    ], [
+        'name' => $githubUser->name,
+        'email' => $githubUser->email,
+        'password'=>$githubUser->token,
+        'github_token' => $githubUser->token,
+        'image'=>$githubUser->getAvatar(),
+        'github_refresh_token' => $githubUser->refreshToken,
+    ]);
+
+    Auth::login($user);
+
+    return redirect('/home');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

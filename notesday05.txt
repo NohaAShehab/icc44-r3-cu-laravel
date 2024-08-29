@@ -44,6 +44,14 @@ Route:apiResource("student", StudentController:class); # generate routes for the
 https://laravel.com/docs/11.x/sanctum#issuing-mobile-api-tokens
 
 
+########## implement login with social media
+
+https://oauth.net/2/ ---> Open Authorization
+--->steps to use login with github
+https://laravel.com/docs/11.x/socialite
+
+
+
 
 
 
