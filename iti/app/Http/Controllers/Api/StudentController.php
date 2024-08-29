@@ -7,6 +7,9 @@ use App\Models\Student;
 use App\Rules\ValidStudentName;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
+
 
 class StudentController extends Controller
 {
@@ -74,6 +77,45 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         //
+//        return $request->all();
+
+//        return "hi from update";
+        $std_validation = Validator::make($request->all(), [
+            "name"=>[
+                "required",
+                new ValidStudentName(),
+            ],
+            "email"=>[
+                "required",
+                "email",
+                Rule::unique("students",'email')->ignore($student)
+            ],
+            "grade"=>"integer",
+            "image"=>"nullable|image|mimes:jpeg,jpg,png|max:2048",
+        ]);
+        # if failed ? --> return response contain error message
+        if($std_validation->fails()){
+            return response()->json(
+                [
+                    "message"=>"errors with request params",
+                    "errors"=> $std_validation->errors()
+                ]
+                , 422);
+        }
+
+        $image_path=$student->image;
+        if($request->hasFile('image')){
+            Storage::disk('students_images')->delete($image_path);
+            $image = $request->file('image');
+            $image_path=$image->store("images", 'students_images');
+        }
+        $request_data= request()->all();
+        $request_data['image']=$image_path; # replace image object with image_uploaded path
+        $student->update($request_data);
+        return $student;
+
+
+
     }
 
     /**
@@ -82,9 +124,14 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+        if($student->image){
+        Storage::disk('students_images')->delete($student->image);
 
+    }
 
         $student->delete();
-        return "deleted";
+        return response()->json(
+            ["deleted"=>"success"], 204
+        );
     }
 }
