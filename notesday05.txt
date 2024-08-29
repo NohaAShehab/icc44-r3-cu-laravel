@@ -1,0 +1,32 @@
+1- APIs
+    https://aws.amazon.com/what-is/api/#:~:text=on%20your%20phone.-,What%20does%20API%20stand%20for%3F,of%20service%20between%20two%20applications.
+
+2-Restful APIs
+https://restfulapi.net/
+
+3- what is resource ?
+REST uses resource identifiers to identify each resource involved in the interactions between the client and the server components.
+
+
+4- to use apis in laravel
+    till project that you need to install api in
+     php artisan install:api
+
+//  Please add the [Laravel\Sanctum\HasApiTokens] trait to your User model.
+
+#separate controller ==> api/ web
+# php artisan make:controller Api/StudentController  -m Student
+# controller functions ? index , store, show, update  , destroy
+# exclude edit , create
+
+
+
+// create routes
+Route:apiResource("student", StudentController:class); # generate routes for the resource controller
+
+  GET|HEAD        api/student ............................................................... student.index › Api\StudentController@index
+  POST            api/student .............................................................. student.store › Api\StudentController@store
+  GET|HEAD        api/student/{student} .......................     ..................... student.show › Api\StudentController@show
+  PUT|PATCH       api/student/{student} ......................................... student.update › Api\StudentController@update
+  DELETE          api/student/{student} .................................................... student.destroy › Api\StudentController@destroy
+

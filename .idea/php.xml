@@ -172,6 +172,7 @@
       <path value="$PROJECT_DIR$/iti/vendor/mockery/mockery" />
       <path value="$PROJECT_DIR$/iti/vendor/monolog/monolog" />
       <path value="$PROJECT_DIR$/iti/vendor/myclabs/deep-copy" />
+      <path value="$PROJECT_DIR$/iti/vendor/laravel/sanctum" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
