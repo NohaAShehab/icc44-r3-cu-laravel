@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
+use App\Rules\ValidStudentName;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
@@ -23,7 +25,27 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         //
-
+        // return to form --> dispaly errors in ??
+        # validate request --> return --> error message ?
+        # create new validator object
+        $std_validation = Validator::make($request->all(), [
+            "name"=>[
+                "required",
+                new ValidStudentName(),
+            ],
+            "email"=>"required|email|unique:students",
+            "grade"=>"integer",
+            "image"=>"image|mimes:jpeg,jpg,png|max:2048",
+        ]);
+        # if failed ? --> return response contain error message
+        if($std_validation->fails()){
+            return response()->json(
+                [
+                    "message"=>"errors with request params",
+                    "errors"=> $std_validation->errors()
+                    ]
+                , 422);
+        }
 
 
         $image_path=null;
