@@ -4,15 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Models\Student;
 use App\Rules\ValidStudentName;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\StudentResource;
 class StudentController extends Controller
 {
+
+    function __construct(){
+        $this->middleware('auth:sanctum')->only(["store", "update"]);
+
+    }
     /**
      * Display a listing of the resource.
      */
@@ -66,7 +73,7 @@ class StudentController extends Controller
 
     public function store(StoreStudentRequest $request)
     {
-
+//        return Auth::id();
 
 
         $image_path=null;
@@ -76,6 +83,7 @@ class StudentController extends Controller
         }
         $request_data= request()->all();
         $request_data['image']=$image_path; # replace image object with image_uploaded path
+        $request_data['creator_id']=Auth::id();
         $student = Student::create($request_data);
 //        return $student;
         return new StudentResource($student);
@@ -95,34 +103,54 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Student $student)
-    {
-        //
-//        return $request->all();
+//    public function update(Request $request, Student $student)
+//    {
+//        //
+////        return $request->all();
+//
+////        return "hi from update";
+//        $std_validation = Validator::make($request->all(), [
+//            "name"=>[
+//                "required",
+//                new ValidStudentName(),
+//            ],
+//            "email"=>[
+//                "required",
+//                "email",
+//                Rule::unique("students",'email')->ignore($student)
+//            ],
+//            "grade"=>"integer",
+//            "image"=>"nullable|image|mimes:jpeg,jpg,png|max:2048",
+//        ]);
+//        # if failed ? --> return response contain error message
+//        if($std_validation->fails()){
+//            return response()->json(
+//                [
+//                    "message"=>"errors with request params",
+//                    "errors"=> $std_validation->errors()
+//                ]
+//                , 422);
+//        }
+//
+//        $image_path=$student->image;
+//        if($request->hasFile('image')){
+//            Storage::disk('students_images')->delete($image_path);
+//            $image = $request->file('image');
+//            $image_path=$image->store("images", 'students_images');
+//        }
+//        $request_data= request()->all();
+//        $request_data['image']=$image_path; # replace image object with image_uploaded path
+//        $student->update($request_data);
+////        return $student;
+//        return new StudentResource($student);
+//
+//
+//
+//    }
 
-//        return "hi from update";
-        $std_validation = Validator::make($request->all(), [
-            "name"=>[
-                "required",
-                new ValidStudentName(),
-            ],
-            "email"=>[
-                "required",
-                "email",
-                Rule::unique("students",'email')->ignore($student)
-            ],
-            "grade"=>"integer",
-            "image"=>"nullable|image|mimes:jpeg,jpg,png|max:2048",
-        ]);
-        # if failed ? --> return response contain error message
-        if($std_validation->fails()){
-            return response()->json(
-                [
-                    "message"=>"errors with request params",
-                    "errors"=> $std_validation->errors()
-                ]
-                , 422);
-        }
+    public function update(UpdateStudentRequest $request, Student $student)
+    {
+
 
         $image_path=$student->image;
         if($request->hasFile('image')){

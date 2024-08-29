@@ -36,3 +36,28 @@ Route:apiResource("student", StudentController:class); # generate routes for the
 # if you like to use put method with upload file via form
     --> use method post in the request
     and use _method=put in the request body
+
+
+=========================================================
+# implement --> only authenticated users can create students
+
+https://laravel.com/docs/11.x/sanctum#issuing-mobile-api-tokens
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
