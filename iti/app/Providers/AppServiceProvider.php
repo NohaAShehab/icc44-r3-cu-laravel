@@ -2,8 +2,16 @@
 
 namespace App\Providers;
 
+use App\Policies\StudentPolicy;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Student;
+use App\Models\User;
+use Illuminate\Support\Facades\Schema;
+
+
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,6 +29,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         //
+        Schema::defaultStringLength(191);
+
         Paginator::useBootstrap();
+
+        # define gates ??
+        Gate::define('delete-student', function (User $user, Student $student) {
+            return $user->id === $student->creator_id;
+        });
+
+        # register policy
+        Gate::policy(Student::class, StudentPolicy::class);
+
     }
 }

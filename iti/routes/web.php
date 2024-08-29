@@ -134,7 +134,9 @@ use App\Http\Controllers\OldStudentController;
 
 use App\Http\Controllers\StudentController;
 
+//Route::resource('students', StudentController::class)->middleware("auth");
 Route::resource('students', StudentController::class);
+
 
 use App\Http\Controllers\TrackController;
 Route::resource("tracks", TrackController::class);
@@ -144,3 +146,28 @@ Route::resource("tracks", TrackController::class);
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+/*
+ * GET|HEAD        login ................................ login › Auth\LoginController@showLoginForm
+  POST            login .................................. Auth\LoginController@login
+  POST            logout ..........    ................... logout › Auth\LoginController@logout
+////******************* password
+ *
+ * GET|HEAD        password/confirm ...... password.confirm › Auth\ConfirmPasswordController@showConfirmForm
+  POST            password/confirm........... Auth\ConfirmPasswordController@confirm
+  POST            password/email ..... password.email › Auth\ForgotPasswordController@sendResetLinkEmail
+  GET|HEAD        password/reset ........... password.request › Auth\ForgotPasswordController@showLinkRequestForm
+  POST            password/reset ............ password.update › Auth\ResetPasswordController@reset
+  GET|HEAD        password/reset/{token} ....... password.reset › Auth\ResetPasswordController@showResetForm
+
+ * GET|HEAD        register .............................. register › Auth\RegisterController@showRegistrationForm
+  POST            register ............................ Auth\RegisterController@register
+ *
+ *
+ *   GET|HEAD        home .............................................................. home › HomeController@index
+
+ * **/

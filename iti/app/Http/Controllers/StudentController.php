@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Track;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\StoreStudentRequest;
 use App\Http\Requests\UpdateStudentRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StudentController extends Controller
 {
+
+    function __construct()
+    {
+//        $this->middleware("auth")->only("store");
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -70,8 +78,14 @@ class StudentController extends Controller
 //
 //
 //    }
+# request in laravel has info about logged in user
     public function store(StoreStudentRequest $request)
     {
+
+//        dd($request->user());
+//        dd(Auth::user()->id);
+//        dd(Auth::id()); # return with id of current logged in user
+//        dd($_POST, $request->all());
 //        dd($request);
         $image_path=null;
         if($request->hasFile('image')){
@@ -80,6 +94,7 @@ class StudentController extends Controller
         }
         $request_data= request()->all();
         $request_data['image']=$image_path; # replace image object with image_uploaded path
+        $request_data["creator_id"]= Auth::id();
         $student = Student::create($request_data);
         return to_route('students.show', $student);
     }
@@ -149,6 +164,16 @@ class StudentController extends Controller
 
     public function update(UpdateStudentRequest $request, Student $student)
     {
+
+//        if(! Gate::allows('update', $student)){
+//            abort(403);
+//        }
+
+//        if(! $request->user()->can('update', $student)){
+//            abort(403);
+//        }
+
+
         $image_path= $student->image;
         if($request->hasFile('image')){
             # delete old_image
@@ -169,6 +194,17 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+//        if($student->creator_id != Auth::id()){
+////            abort(403);
+//            return to_route('students.index')->with("error", "You can't delete this student");
+//        }
+//        if (! Gate::allows('delete-student', $student)) {
+//            abort(403);
+//        }
+        if(! Auth::user()->can('delete-student', $student)){
+            abort(403);
+        }
+
         $student->delete();
         return to_route('students.index')->with('success', 'Student deleted successfully');
     }

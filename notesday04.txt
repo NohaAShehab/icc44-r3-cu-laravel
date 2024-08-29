@@ -1,0 +1,103 @@
+
+1- using laravel
+
+
+2- using middlewares
+intro
+https://laravel.com/docs/11.x/middleware
+----------> middleware groups
+basic middlewares
+https://laravel.com/docs/11.x/middleware#manually-managing-laravels-default-global-middleware
+
+web middlewares
+https://laravel.com/docs/11.x/middleware#laravels-default-middleware-groups
+
+
+laravel-ui package
+    -> provide middleware --> auth -->
+        --> can be used in different parts in the app. ??
+    1- inside controller
+        -->restrict only authenticated user can store new student ??
+
+    2- inside the route
+//Route::resource('students', StudentController::class)->middleware("auth");
+
+    3-  inside the view
+
+        @auth()
+
+        @else
+
+        @endauth
+
+
+
+*************************************************************************
+implement logic --> add student creator ?? logged_in user ??
+
+---> only student creator can delete student
+    1- in controller if condition
+
+    2- Authorization tools
+        1- gates ??
+            can-delete ?
+            a- define gates in AppServiceProvider
+              Gate::define('delete-student', function (User $user, Student $student) {
+                        return $user->id === $student->creator_id;
+                    });
+
+            b- use this gate ?
+                b1- use gates in controller?
+                 if (! Gate::allows('delete-student', $student)) {
+                            abort(403);
+                        }
+                 b2- use gate ==>with user ???
+                  if(! Auth::user()->can('delete-student', $student)){
+                             abort(403);
+                         }
+
+                b3- use gates in blade
+                @can()
+                @endcan
+
+            ************************************************
+            2- using Polices
+            php artisan make:policy PostPolicy --model=Student
+            --> apply policy on update ??
+            in policy class
+              public function update(User $user, Student $student): bool
+                {
+                    //
+                    return $user->id === $student->creator_id;
+                }
+                **** 0-  register with policy
+                # register policy in appservice provider
+                  Gate::policy(Student::class, StudentPolicy::class);
+                ****** 1- use policy
+                    1- in controller
+
+                     if(! Gate::allows('update', $student)){
+                                abort(403);
+                            }
+
+                      if(! $request->user()->can('update', $student)){
+                                 abort(403);
+                             }
+
+                    2- use in blade
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

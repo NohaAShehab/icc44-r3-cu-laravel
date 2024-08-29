@@ -16,10 +16,20 @@
                 <p class="card-text" > <a href="{{route("tracks.show", $student->track)}}"> {{$student->track->name}}</a> </p>
 
             @endif
+            <p class="card-text"><strong> Created_by: {{$student->creator ? $student->creator->name : "unknown"}} </strong></p>
             <p class="card-text">Created_at: {{$student->created_at}}</p>
             <p class="card-text">Updated_at: {{$student->updated_at}}</p>
 
             <a href="{{route("students.index")}}" class="btn btn-primary">Back to all students </a>
+            @can('delete-student', $student)
+            <form action="{{route("students.destroy", $student)}}" method="post">
+                @csrf
+                @method("delete")
+                <input type="submit" class="btn btn-danger" value="Delete">
+            </form>
+            @else
+                <strong style="color:red">You cannot delete this student</strong>
+            @endcan
         </div>
     </div>
     <div class="col" >

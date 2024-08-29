@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    @if(session('error'))
+        <div class="alert alert-danger">{{session("error")}} </div>
+    @endif
     @if(session('success'))
         <div class="alert alert-success">{{session("success")}} </div>
     @endif
@@ -13,20 +16,38 @@
             <tr>
                 <td>{{$student->id}}</td>
                 <td>{{$student->name}}</td>
-                <td><img src="{{asset('images/students/'.$student->image)}}" width="100" height="100"></td>
+                <td><img src="{{asset('images/students/'.$student->image)}}" width="50" height="50"></td>
                 <td><a href="{{route("students.show", $student)}}" class="btn btn-info">Show</a></td>
-                <td><a href="{{route("students.edit", $student)}}" class="btn btn-warning">Edit</a></td>
+                @can("update", $student)
+                    <td><a href="{{route("students.edit", $student)}}" class="btn btn-warning">Edit</a></td>
+                @else
+                    <td><strong>Updated allowed for only owners </strong> </td>
+                @endcan
+{{--                @auth()--}}
+{{--                <td>--}}
 
-                <td>
-
-{{--                    <a href="{{route("students.destroy", $student->id)}}" class="btn btn-danger">Delete</a>--}}
+{{--                    <form action="{{route("students.destroy", $student)}}" method="post">--}}
+{{--                        @csrf--}}
+{{--                        @method("delete")--}}
+{{--                        <input type="submit" class="btn btn-danger" value="Delete">--}}
+{{--                    </form>--}}
+{{--                    </td>--}}
+{{--                @else--}}
+{{--                    <td><strong>Login first</strong></td>--}}
+{{--                @endauth--}}
+                @can('delete-student', $student)
+                    <td>
                     <form action="{{route("students.destroy", $student)}}" method="post">
                         @csrf
                         @method("delete")
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </form>
                     </td>
-
+                @else
+                    <td>
+                    <strong style="color:red">You cannot delete this student</strong>
+                    </td>
+                @endcan
             </tr>
 
         @endforeach
