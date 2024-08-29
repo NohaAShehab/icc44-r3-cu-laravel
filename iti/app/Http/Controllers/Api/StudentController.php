@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
-
-
+use App\Http\Resources\StudentResource;
 class StudentController extends Controller
 {
     /**
@@ -20,7 +19,9 @@ class StudentController extends Controller
     public function index()
     {
         //
-        return Student::all();
+//        return Student::all();
+        $students = Student::all();
+        return StudentResource::collection($students);
     }
 
     /**
@@ -76,7 +77,9 @@ class StudentController extends Controller
         $request_data= request()->all();
         $request_data['image']=$image_path; # replace image object with image_uploaded path
         $student = Student::create($request_data);
-        return $student;
+//        return $student;
+        return new StudentResource($student);
+
     }
 
     /**
@@ -85,7 +88,8 @@ class StudentController extends Controller
     public function show(Student $student)
     {
         //
-        return $student;
+//        return $student;
+        return new StudentResource($student);
     }
 
     /**
@@ -129,7 +133,8 @@ class StudentController extends Controller
         $request_data= request()->all();
         $request_data['image']=$image_path; # replace image object with image_uploaded path
         $student->update($request_data);
-        return $student;
+//        return $student;
+        return new StudentResource($student);
 
 
 
