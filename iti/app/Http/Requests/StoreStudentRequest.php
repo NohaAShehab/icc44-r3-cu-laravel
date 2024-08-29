@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+
 use App\Rules\ValidStudentName;
 class StoreStudentRequest extends FormRequest
 {
@@ -31,6 +33,7 @@ class StoreStudentRequest extends FormRequest
             "email"=>"required|email|unique:students",
             "grade"=>"integer",
             "image"=>"image|mimes:jpeg,jpg,png|max:2048",
+            "gender"=> Rule::in(['male', 'female']),
         ];
     }
     public  function messages(): array

@@ -30,3 +30,9 @@ Route:apiResource("student", StudentController:class); # generate routes for the
   PUT|PATCH       api/student/{student} ......................................... student.update › Api\StudentController@update
   DELETE          api/student/{student} .................................................... student.destroy › Api\StudentController@destroy
 
+# if you like to use storerequestclass
+    don't forget to modify header of request to Accept: application/json
+
+# if you like to use put method with upload file via form
+    --> use method post in the request
+    and use _method=put in the request body
